@@ -1,0 +1,96 @@
+name: TestqUiz
+version: 2.0
+main: me.number1_Master.TestqUiz.TestqUizMain
+description: This allows you to test your players!
+author: number1_Master / nunber1_Master / number1Master
+commands:
+    TestqUiz:
+        description: General command for TestqUiz
+        usage: |
+            If you see this message, that means
+            something is wrong! You must contact
+            number1_Master as soon as possible!
+permissions:
+     TestqUiz.correct.*:
+        description: Allows the use of any Correct Answer Permission node!
+        children:
+           TestqUiz.correct.create: true
+           TestqUiz.correct.break: true
+     TestqUiz.incorrect.*:
+        description: Allows the use of any Incorrect Answer Permission node!
+        children:
+           TestqUiz.incorrect.create: true
+           TestqUiz.incorrect.break: true
+     TestqUiz.finish.*:
+        description: Allows the use of any Finish Permission node!
+        children:
+           TestqUiz.finish.create: true
+           TestqUiz.finish.break: true
+     TestqUiz.create.*:
+        description: Allows you to create all signs!
+        children:
+           TestqUiz.correct.create: true
+           TestqUiz.incorrect.create: true
+           TestqUiz.finish.create: true
+     TestqUiz.correct.create:
+         description: Allows you to create correct answer signs!
+         default: op
+     TestqUiz.incorrect.create:
+         description: Allows you to create incorrect answer signs!
+         default: op
+     TestqUiz.finish.create:
+         description: Allows you to create finish test signs!
+         default: op
+     TestqUiz.break.*:
+        description: Allows you to create all signs!
+        children:
+           TestqUiz.correct.break: true
+           TestqUiz.incorrect.break: true
+           TestqUiz.finish.break: true
+     TestqUiz.correct.break:
+         description: Allows you to break correct answer signs!
+         default: op
+     TestqUiz.incorrect.break:
+         description: Allows you to break incorrect answer signs!
+         default: op
+     TestqUiz.finish.break:
+         description: Allows you to break finish test signs!
+         default: op
+     TestqUiz.notify.*:
+        description: Allows you to be notified when an answer is made!
+        children:
+           TestqUiz.notify.incorrect: true
+           TestqUiz.notify.kick: true
+           TestqUiz.notify.ban: true
+           TestqUiz.notify.correct: true
+           TestqUiz.notify.finish: true
+     TestqUiz.notify.incorrect:
+         description: Allow the player to be notified when someone gets a wrong answer!
+         default: op
+     TestqUiz.notify.kick:
+         description: Allow the player to be notified when someone gets kicked from the test/quiz!
+         default: op
+     TestqUiz.notify.ban:
+         description: Allow the player to be notified when someone gets banned from the test/quiz!
+         default: op
+     TestqUiz.notify.correct:
+         description: Allow the player to be notified when someone gets a correct answer!
+         default: op
+     TestqUiz.notify.finish:
+         description: Allow the player to be notified when someone finishes the test!
+         default: op
+     TestqUiz.commands.*:
+        description: Allows you to type all TestqUiz commands!
+        children:
+           TestqUiz.version: true
+           TestqUiz.reload: true
+           TestqUiz.bypass: true
+     TestqUiz.version:
+         description: Shows you the version of TestqUiz!
+         default: true
+     TestqUiz.reload:
+         description: Reloads the config.yml!
+         default: op
+     TestqUiz.bypass:
+         description: Allows you to bypass !
+         default: op
