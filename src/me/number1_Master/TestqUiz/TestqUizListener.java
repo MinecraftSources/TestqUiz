@@ -8,7 +8,6 @@ import me.number1_Master.TestqUiz.Methods.OtherMethods;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -43,7 +42,7 @@ public class TestqUizListener implements Listener
 			Sign sign = (Sign) checkSign.getState();
 			
 			Location tempLoc = player.getLocation();
-			World world = tempLoc.getWorld();
+			String world = tempLoc.getWorld().getName();
 			Long x = Math.round(tempLoc.getX());
 			Long y = Math.round(tempLoc.getY());
 			Long z = Math.round(tempLoc.getZ());
@@ -75,19 +74,19 @@ public class TestqUizListener implements Listener
 			return;
 		}
 		//	AntiSpam Removal
-		if(plugin.incorrectAntiSpam.containsKey(playerName) && System.currentTimeMillis() - plugin.incorrectAntiSpam.get(playerName) >= 3000)
+		if(plugin.incorrectAntiSpam.containsKey(playerName) &&plugin.incorrectAntiSpam.get(playerName) <= System.currentTimeMillis())
 		{
 			plugin.incorrectAntiSpam.remove(playerName);
 		}
-		if(plugin.correctAntiSpam.containsKey(playerName) && System.currentTimeMillis() - plugin.correctAntiSpam.get(playerName) >= 3000)
+		if(plugin.correctAntiSpam.containsKey(playerName) && plugin.correctAntiSpam.get(playerName) <= System.currentTimeMillis())
 		{
 			plugin.correctAntiSpam.remove(playerName);
 		}
-		if(plugin.finishAntiSpam.containsKey(playerName) && System.currentTimeMillis() - plugin.finishAntiSpam.get(playerName) >= 3000)
+		if(plugin.finishAntiSpam.containsKey(playerName) && plugin.finishAntiSpam.get(playerName) <= System.currentTimeMillis())
 		{
 			plugin.finishAntiSpam.remove(playerName);
 		}
-		if(plugin.cheating.containsKey(OtherMethods.location) && System.currentTimeMillis() - plugin.cheating.get(OtherMethods.location) >= 10000)
+		if(plugin.cheating.containsKey(OtherMethods.location) && plugin.cheating.get(OtherMethods.location) <= System.currentTimeMillis())
 		{
 			plugin.cheating.remove(OtherMethods.location);
 			if(plugin.cheaters.contains(playerName))
@@ -227,7 +226,7 @@ public class TestqUizListener implements Listener
 	{
 		if(!(plugin.takeTest.containsKey(e.getPlayer().getName())))
 		{
-			plugin.takeTest.put(e.getPlayer().getName(), System.currentTimeMillis());
+			plugin.takeTest.put(e.getPlayer().getName(), System.currentTimeMillis() + (plugin.getConfig().getInt("General.Start.Time") * 1000));
 		}
 	}
 	

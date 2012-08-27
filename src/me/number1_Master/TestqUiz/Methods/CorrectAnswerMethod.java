@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import me.number1_Master.TestqUiz.TestqUizMain;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -24,13 +25,13 @@ public class CorrectAnswerMethod
 	{
 		if(!(plugin.correctAntiSpam.containsKey(playerName)))
 		{
-			plugin.correctAntiSpam.put(playerName, System.currentTimeMillis());
+			plugin.correctAntiSpam.put(playerName, System.currentTimeMillis() + 3000);
 			
 			player.sendMessage(prefix + plugin.getConfig().getString("Messages.To-Player.Correct").replace("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD));
 			
 			if(plugin.getConfig().getBoolean("Correct Answer.Announce") == true)
 			{
-				player.getServer().broadcastMessage(prefix + plugin.getConfig().getString("Messages.Announce.Correct").replace("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD));
+				Bukkit.getServer().broadcastMessage(prefix + plugin.getConfig().getString("Messages.Announce.Correct").replace("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD));
 				return;
 			}
 			if(plugin.getConfig().getBoolean("Correct Answer.Log") && plugin.getConfig().getBoolean("Correct Answer.Announce") == false)

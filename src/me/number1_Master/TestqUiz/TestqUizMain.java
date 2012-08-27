@@ -51,7 +51,6 @@ public class TestqUizMain extends JavaPlugin
 	{
 		plugin = this;
 		PluginDescriptionFile pdf = getDescription();
-		
 		getServer().getPluginManager().registerEvents(listener, this);
 		getCommand("TestqUiz").setExecutor(command);
 				
@@ -90,6 +89,7 @@ public class TestqUizMain extends JavaPlugin
 		config.addDefault("General.Cheating.Teleport to Spawn", true);
 		
 		config.addDefault("General.Logout.Clear", 120);
+		config.addDefault("General.Teleport Command", "P: spawn");
 	}
 	public void incorrectConfigurations(FileConfiguration config)
 	{		
@@ -126,6 +126,7 @@ public class TestqUizMain extends JavaPlugin
 		config.addDefault("Finish.Notify", false);
 		config.addDefault("Finish.Permissions.Use", false);
 		config.addDefault("Finish.Permissions.Add or Change", true);
+		config.addDefault("Finish.Permissions.World", "world");
 		config.addDefault("Finish.Permissions.From Group", "default");
 		config.addDefault("Finish.Permissions.To Group", "user");
 		config.addDefault("Finish.Permissions.Reward.Use Economy", false);

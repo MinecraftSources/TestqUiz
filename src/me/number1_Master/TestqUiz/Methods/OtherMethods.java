@@ -25,24 +25,36 @@ public class OtherMethods
 	static Player cheater1;
 	
 	//--------------------------------------------
-	public static boolean check(Player player, String playerName, Sign sign, String loc)
+	public static boolean check(Player player, final String playerName, Sign sign, String loc)
 	{
 		if(sign.getLine(0).equals("[TestqUiz]") && sign.getLine(2).equals("") && sign.getLine(3).equals("") && (sign.getLine(1).equalsIgnoreCase("Incorrect") || sign.getLine(1).equalsIgnoreCase("Correct") || sign.getLine(1).equalsIgnoreCase("Finish")))
 		{
-			if(plugin.takeTest.containsKey(playerName) && System.currentTimeMillis() - plugin.takeTest.get(playerName) >= plugin.getConfig().getInt("General.Start.Time") *1000)
+			if(plugin.takeTest.containsKey(playerName) && plugin.takeTest.get(playerName) <= System.currentTimeMillis())
 			{	
-				if(!(plugin.incorrectAntiSpam.containsKey(playerName) && plugin.correctAntiSpam.containsKey(playerName) && plugin.finishAntiSpam.containsKey(playerName)))
+				if(!(plugin.incorrectAntiSpam.containsKey(playerName)) && !(plugin.correctAntiSpam.containsKey(playerName)) && !(plugin.finishAntiSpam.containsKey(playerName)))
 				{
 					if(!(plugin.cheating.containsKey(loc)) && !(plugin.cheaters.contains(playerName)))
 					{
 						location = loc;
 						cheater1 = player;
-						plugin.cheating.put(loc, System.currentTimeMillis());
+						plugin.cheating.put(loc, System.currentTimeMillis() + 10000);
 						plugin.cheaters.add(playerName);
 						return true;
 					}
-					else if(plugin.cheating.containsKey(loc) && System.currentTimeMillis() - plugin.cheating.get(loc) <= 10 *1000 && !(plugin.cheaters.contains(playerName)))
+					else if(plugin.cheating.containsKey(loc) && plugin.cheaters.contains(playerName)) return false;
+					else if(plugin.cheating.containsKey(loc) && plugin.cheating.get(loc) >= System.currentTimeMillis() && !(plugin.cheaters.contains(playerName)))
 					{
+						if(plugin.getConfig().getBoolean("General.Cheating.Teleport to Spawn") == true)
+						{
+							if(plugin.getConfig().getBoolean("General.Cheating.Player") == true)
+							{
+								OtherMethods.teleport(cheater1, plugin.getConfig().getString("General.Teleport Command"));
+							}
+							else
+							{
+								OtherMethods.teleport(player, plugin.getConfig().getString("General.Teleport Command"));
+							}
+						}
 						if(plugin.getConfig().getBoolean("General.Cheating.Kick.Use") == true)
 						{
 							if(plugin.getConfig().getBoolean("General.Cheating.Player") == true)
@@ -54,22 +66,9 @@ public class OtherMethods
 								Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", playerName));
 							}
 						}
-						if(plugin.getConfig().getBoolean("General.Cheating.Teleport to Spawn") == true)
-						{
-							if(plugin.getConfig().getBoolean("General.Cheating.Player") == true)
-							{
-								cheater1.teleport(player.getWorld().getSpawnLocation());
-							}
-							else
-							{
-								player.teleport(player.getWorld().getSpawnLocation());
-							}
-						}
-					}
-					else
-					{
 						return false;
 					}
+					else return true;
 				}
 				return false;
 			}
@@ -77,11 +76,15 @@ public class OtherMethods
 			{
 				if(plugin.getConfig().getBoolean("General.Start.Teleport to Spawn") == true)
 				{
-					player.teleport(player.getWorld().getSpawnLocation());
+					System.out.println(plugin.getConfig().getBoolean("General.Start.Teleport to Spawn"));
+					OtherMethods.teleport(player, plugin.getConfig().getString("General.Teleport Command"));
 				}
 				if(plugin.getConfig().getBoolean("General.Start.Kick.Use") == true)
 				{
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName));
+					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable()
+					{
+						public void run() { Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName)); }
+					}, 5);
 				}
 				return false;
 			}
@@ -138,6 +141,19 @@ public class OtherMethods
 			{
 				log.info(prefix + "Check Reward Items in the config.yml. Something is incorrect!");
 			}
+		}
+	}
+	public static void teleport(Player player, String command)
+	{
+		command =  command.replaceAll("PLAYERNAME", player.getName());
+		if(command.startsWith("P: "))
+		{
+			command =  command.replaceFirst("P: ", "");
+			Bukkit.dispatchCommand(player, command);
+		}
+		else
+		{
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 		}
 	}
 }

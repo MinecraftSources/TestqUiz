@@ -2,6 +2,7 @@ package me.number1_Master.TestqUiz.Methods;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -24,7 +25,7 @@ public class FinishAnswerMethod
 	{
 		if(!(plugin.finishAntiSpam.containsKey(playerName)))
 		{
-			plugin.finishAntiSpam.put(player.getName(), System.currentTimeMillis());
+			plugin.finishAntiSpam.put(playerName, System.currentTimeMillis() + 3000);
 			if(plugin.incorrectAmount.containsKey(playerName))
 			{
 				plugin.incorrectAmount.remove(playerName);
@@ -34,7 +35,7 @@ public class FinishAnswerMethod
 			
 			if(plugin.getConfig().getBoolean("Finish.Announce") == true)
 			{
-				player.getServer().broadcastMessage(prefix + plugin.getConfig().getString("Messages.Announce.Finish").replace("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD));
+				Bukkit.getServer().broadcastMessage(prefix + plugin.getConfig().getString("Messages.Announce.Finish").replace("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD));
 			}
 			if(plugin.getConfig().getBoolean("Finish.Log") == true && plugin.getConfig().getBoolean("Finish.Announce") == false)
 			{
@@ -47,10 +48,10 @@ public class FinishAnswerMethod
 			
 			if(plugin.usingVault == true && plugin.permission != null && plugin.getConfig().getBoolean("Finish.Permissions.Use") == true && plugin.permission.playerInGroup(player, plugin.getConfig().getString("Finish.Permissions.From Group")))
 			{
-				plugin.permission.playerAddGroup(player, plugin.getConfig().getString("Finish.Permissions.To Group"));
+				plugin.permission.playerAddGroup(Bukkit.getServer().getWorld(plugin.getConfig().getString("Finish.Permissions.World")), playerName, plugin.getConfig().getString("Finish.Permissions.To Group"));
 				if(plugin.getConfig().getBoolean("Finish.Permissions.Add or Change") == false)
 				{
-					plugin.permission.playerRemoveGroup(player, plugin.getConfig().getString("Finish.Permissions.From Group"));
+					plugin.permission.playerRemoveGroup(Bukkit.getServer().getWorld(plugin.getConfig().getString("Finish.Permissions.World")), playerName, plugin.getConfig().getString("Finish.Permissions.From Group"));
 				}		
 				String groupChangeMsg = plugin.getConfig().getString("Messages.To-Player.Group Change");
 				groupChangeMsg = groupChangeMsg.replaceAll("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD);
