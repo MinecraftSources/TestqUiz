@@ -143,6 +143,6 @@ public class IncorrectAnswerMethod
 				}
 				return;
 			}
-		}, 5);
+		}, 2);
 	}
 }

@@ -76,7 +76,6 @@ public class OtherMethods
 			{
 				if(plugin.getConfig().getBoolean("General.Start.Teleport to Spawn") == true)
 				{
-					System.out.println(plugin.getConfig().getBoolean("General.Start.Teleport to Spawn"));
 					OtherMethods.teleport(player, plugin.getConfig().getString("General.Teleport Command"));
 				}
 				if(plugin.getConfig().getBoolean("General.Start.Kick.Use") == true)
@@ -84,7 +83,7 @@ public class OtherMethods
 					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable()
 					{
 						public void run() { Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName)); }
-					}, 5);
+					}, 2);
 				}
 				return false;
 			}

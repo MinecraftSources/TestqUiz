@@ -79,6 +79,7 @@ public class TestqUizMain extends JavaPlugin
 	public void generalConfigurations(FileConfiguration config)
 	{
 		config.addDefault("General.Start.Time", 60);
+		config.addDefault("General.version", "2.3");
 		config.addDefault("General.Start.Kick.Use", true);
 		config.addDefault("General.Start.Kick.Command", "kick PLAYERNAME Turn around and go read the rules!");
 		config.addDefault("General.Start.Teleport to Spawn", true);
