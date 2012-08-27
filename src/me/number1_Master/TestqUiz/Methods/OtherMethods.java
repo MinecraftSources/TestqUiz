@@ -76,7 +76,7 @@ public class OtherMethods
 			{
 				if(plugin.getConfig().getBoolean("General.Start.Teleport to Spawn") == true)
 				{
-					OtherMethods.teleport(player, plugin.getConfig().getString("General.Teleport Command"));
+					teleport(player, plugin.getConfig().getString("General.Teleport Command"));
 				}
 				if(plugin.getConfig().getBoolean("General.Start.Kick.Use") == true)
 				{
