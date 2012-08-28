@@ -30,8 +30,6 @@ public class TestqUizListener implements Listener
 	}
 	
 	String prefix = ChatColor.YELLOW + "[TestqUiz] " + ChatColor.GOLD;
-	
-	int task1;
 
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
@@ -227,9 +225,9 @@ public class TestqUizListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)
 	{
-		if(Bukkit.getScheduler().isCurrentlyRunning(task1))
+		if(plugin.clearLag.containsKey(e.getPlayer()) && Bukkit.getScheduler().isCurrentlyRunning(plugin.clearLag.get(e.getPlayer().getName())))
 		{
-			Bukkit.getScheduler().cancelTask(task1);
+			Bukkit.getScheduler().cancelTask(plugin.clearLag.get(e.getPlayer().getName()));
 		}
 		if(!(plugin.takeTest.containsKey(e.getPlayer().getName())))
 		{
@@ -242,7 +240,7 @@ public class TestqUizListener implements Listener
 	{				
 		final String playerName = e.getPlayer().getName();
 		
-		task1 = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable()
+		int task = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable()
 		{
 			@Override
 			public void run()
@@ -282,5 +280,6 @@ public class TestqUizListener implements Listener
 			}
 			
 		}, plugin.getConfig().getInt("General.Logout.Clear") * 20);
+		plugin.clearLag.put(playerName, task);
 	}
 }

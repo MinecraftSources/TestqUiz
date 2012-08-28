@@ -33,6 +33,7 @@ public class TestqUizMain extends JavaPlugin
 	public HashMap<String, Long> takeTest = new HashMap<String, Long>();
 	public HashMap<String, Long> cheating = new HashMap<String, Long>();
 	public ArrayList<String> cheaters = new ArrayList<String>();
+	public HashMap<String, Integer> clearLag = new HashMap<String,Integer>();
 	
 	TestqUizMain plugin;
 	TestqUizCommand command = new TestqUizCommand(this);
