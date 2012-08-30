@@ -1,6 +1,6 @@
 name: TestqUiz
-version: 2.3
-main: me.number1_Master.TestqUiz.TestqUizMain
+version: 2.4
+main: me.number1_Master.TestqUiz.TestqUiz
 description: This allows you to test your players!
 author: number1_Master / nunber1_Master / number1Master
 commands:

@@ -1,6 +1,10 @@
 package me.number1_Master.TestqUiz;
 
-import org.bukkit.ChatColor;
+import me.number1_Master.TestqUiz.Config.Config;
+import me.number1_Master.TestqUiz.Config.Messages;
+import me.number1_Master.TestqUiz.Config.Users;
+import me.number1_Master.TestqUiz.Utils.Utils;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,19 +12,13 @@ import org.bukkit.entity.Player;
 
 public class TestqUizCommand implements CommandExecutor
 {
-	private TestqUizMain plugin;
-	public TestqUizCommand(TestqUizMain instance)
-	{
-		plugin = instance;
-	}
-	String prefix = ChatColor.YELLOW + "[TestqUiz] " + ChatColor.GOLD;
+	private String prefix = Utils.getPrefix(true);
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args)
 	{
 		if(cmd.getName().equalsIgnoreCase("TestqUiz"))
 		{
-			// /TestqUiz
 			if(args.length == 0 || args.length >= 2)
 			{
 				if(!(sender.hasPermission("TestqUiz.version")))
@@ -28,11 +26,10 @@ public class TestqUizCommand implements CommandExecutor
 					sender.sendMessage(prefix + "You don't have permission to use that!");
 					return true;
 				}
-				plugin.version(sender, prefix);
+				sender.sendMessage(prefix + "You are running version " + TestqUiz.p.getDescription().getVersion());
 				return true;
 			}
 			
-			// /TestqUiz reload
 			else if(args[0].equalsIgnoreCase("reload"))
 			{
 				if(!(sender.hasPermission("TestqUiz.reload")))
@@ -40,12 +37,12 @@ public class TestqUizCommand implements CommandExecutor
 					sender.sendMessage(prefix + "You don't have permission to use that!");
 					return true;
 				}
-				plugin.reloadConfig();
-				plugin.saveConfig();
-				sender.sendMessage(prefix + "Config reloaded!");
+				Config.reload();
+				Messages.reload();
+				Users.reload();
+				sender.sendMessage(prefix + "Configutaions reloaded!");
 				return true;
 			}
-			// /TestqUiz bypass
 			else if(args[0].equalsIgnoreCase("bypass"))
 			{
 				if(!(sender instanceof Player))
@@ -61,23 +58,22 @@ public class TestqUizCommand implements CommandExecutor
 					return true;
 				}
 				
-				if(plugin.incorrectBypass.contains(player.getName()))
+				if(TestqUiz.p.incorrectBypass.contains(player.getName()))
 				{
-					plugin.incorrectBypass.remove(player.getName());
+					TestqUiz.p.incorrectBypass.remove(player.getName());
 					player.sendMessage(prefix + "You can no longer bypass Incorrect Answers!");
 					return true;
 				}
 				else
 				{
-					plugin.incorrectBypass.add(player.getName());
+					TestqUiz.p.incorrectBypass.add(player.getName());
 					player.sendMessage(prefix + "You can now bypass Incorrect Answers!");
 					return true;
 				}
 			}
-			// /TestqUiz somethingelse
 			else
 			{
-				sender.sendMessage(prefix + "Unkown " + ChatColor.YELLOW + "TestqUiz" + ChatColor.GOLD + " command!");
+				sender.sendMessage(prefix + "Unkown " + Utils.y + "TestqUiz" + Utils.o + " command!");
 				return true;
 			}
 		}

@@ -1,0 +1,53 @@
+package me.number1_Master.TestqUiz.Config;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.number1_Master.TestqUiz.TestqUiz;
+import me.number1_Master.TestqUiz.Utils.Log;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+public class Users
+{
+	private static FileConfiguration users;
+	private static File usersFile;
+	
+	public static void reload()
+	{
+		if(usersFile == null) usersFile = new File(TestqUiz.dir, "users.yml");
+		
+		users = YamlConfiguration.loadConfiguration(usersFile);
+		
+		users.options().header("Check out http://bit.ly/TestqUizConfiguration for help!");
+		
+		users.addDefault("Passed", new ArrayList<String>());
+		
+		users.options().copyDefaults(true);
+		save();
+	}
+	public static void save()
+	{
+		if(users == null || usersFile == null) return;
+		
+		try
+		{ users.save(usersFile); }
+		catch(Exception err)
+		{ Log.s("Could not save users.yml!"); }
+	}
+	public static List<String> getStringList(String path)
+	{
+		if(users == null || usersFile == null) reload();
+		return users.getStringList(path);
+	}
+	public static void addToStringList(String path, String value)
+	{
+		if(users == null || usersFile == null) reload();
+		
+		ArrayList<String> passed = (ArrayList<String>) getStringList(path);
+		passed.add(value);
+		users.set(path, passed);
+	}
+}
