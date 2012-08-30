@@ -37,26 +37,26 @@ public class PlayerListener implements Listener
 					&& (sign.getLine(1).equalsIgnoreCase("Incorrect") || sign.getLine(1).equalsIgnoreCase("Correct") || sign.getLine(1).equalsIgnoreCase("Finish")))
 			{	
 				AnswerPreprocessEvent preprocessEvent = new AnswerPreprocessEvent(player, sign);
-				Bukkit.getPluginManager().callEvent(preprocessEvent);
+				Bukkit.getServer().getPluginManager().callEvent(preprocessEvent);
 				if(preprocessEvent.isCancelled()) return;
 				
 				TestqUiz.p.antiSpam.put(playerName, System.currentTimeMillis() + 2000);
 				if (sign.getLine(1).equalsIgnoreCase("Incorrect"))
 				{
 					IncorrectAnswerEvent incorrectEvent = new IncorrectAnswerEvent(player);
-					Bukkit.getPluginManager().callEvent(incorrectEvent);
+					Bukkit.getServer().getPluginManager().callEvent(incorrectEvent);
 					return;
 				} 
 				else if(sign.getLine(1).equalsIgnoreCase("Correct"))
 				{
 					CorrectAnswerEvent correctEvent = new CorrectAnswerEvent(player);
-					Bukkit.getPluginManager().callEvent(correctEvent);
+					Bukkit.getServer().getPluginManager().callEvent(correctEvent);
 					return;
 				}				
 				else if(sign.getLine(1).equalsIgnoreCase("Finish"))
 				{
 					FinishAnswerEvent finishEvent = new FinishAnswerEvent(player);
-					Bukkit.getPluginManager().callEvent(finishEvent);
+					Bukkit.getServer().getPluginManager().callEvent(finishEvent);
 					return;
 				}
 				return;

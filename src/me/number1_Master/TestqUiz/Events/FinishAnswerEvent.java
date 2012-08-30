@@ -2,8 +2,6 @@ package me.number1_Master.TestqUiz.Events;
 
 import me.number1_Master.TestqUiz.TestqUiz;
 import me.number1_Master.TestqUiz.Config.Config;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -40,9 +38,6 @@ public class FinishAnswerEvent extends Event implements Cancellable
 		return false;
 	}
 	
-	public Permission getPermissions()
-	{ return TestqUiz.permission; }
-	
 	public boolean isUsingEconomy()
 	{
 		if(Config.getBoolean("Finish.Permissions.Reward.Use Economy"))
@@ -52,9 +47,6 @@ public class FinishAnswerEvent extends Event implements Cancellable
 		}
 		return false;
 	}
-	
-	public Economy getEconomy()
-	{ return TestqUiz.economy; }
 	
 	public boolean isCancelled()
 	{ return cancelled; }
