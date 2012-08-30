@@ -14,13 +14,11 @@ import me.number1_Master.TestqUiz.Listeners.IncorrectListener;
 import me.number1_Master.TestqUiz.Listeners.PlayerListener;
 import me.number1_Master.TestqUiz.Listeners.PreprocessListener;
 import me.number1_Master.TestqUiz.Utils.Log;
-import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,8 +27,8 @@ public class TestqUiz extends JavaPlugin
 	public static TestqUiz p;
 	public static File dir;
 	
-	public Permission permission = null;
-	public Economy economy = null;
+	public static Permission permission = null;
+	public static Economy economy = null;
 	
 	PlayerListener pListener = new PlayerListener();
 	BlockListener bListener = new BlockListener();
@@ -51,22 +49,8 @@ public class TestqUiz extends JavaPlugin
 	public void onEnable()
 	{
 		p = this;
-		dir = getDataFolder();
 		
-		getServer().getPluginManager().registerEvents(pListener, this);
-		getServer().getPluginManager().registerEvents(bListener, this);
-		getServer().getPluginManager().registerEvents(ppListener, this);
-		getServer().getPluginManager().registerEvents(iListener, this);
-		getServer().getPluginManager().registerEvents(cListener, this);
-		getServer().getPluginManager().registerEvents(fListener, this);
-		getCommand("TestqUiz").setExecutor(new TestqUizCommand());
-				
-		Config.reload();
-		Messages.reload();
-		Users.reload();
-		
-		Plugin vault = (Vault) getServer().getPluginManager().getPlugin("Vault");
-		if(vault != null && vault.isEnabled())
+		if(getServer().getPluginManager().getPlugin("Vault") != null)
 		{
 			RegisteredServiceProvider<Permission> permissionPlugin = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
 			if(permissionPlugin != null)
@@ -79,6 +63,19 @@ public class TestqUiz extends JavaPlugin
 		}		
 		if(permission != null && economy != null) Log.i("Vault hooked in for Permissions and Economy!");
 		else if(permission != null && economy == null) Log.i("Vault hooked in for Permissions. Economy disabled!");
+
+		dir = getDataFolder();
+		Config.reload();
+		Messages.reload();
+		Users.reload();	
+		
+		getServer().getPluginManager().registerEvents(pListener, this);
+		getServer().getPluginManager().registerEvents(bListener, this);
+		getServer().getPluginManager().registerEvents(ppListener, this);
+		getServer().getPluginManager().registerEvents(iListener, this);
+		getServer().getPluginManager().registerEvents(cListener, this);
+		getServer().getPluginManager().registerEvents(fListener, this);
+		getCommand("TestqUiz").setExecutor(new TestqUizCommand());	
 		
 		Log.i("I am ready to test your players!");
 	}

@@ -24,7 +24,7 @@ public class FinishAnswerEvent extends Event implements Cancellable
 	public HandlerList getHandlers()
 	{ return handlers; }
 	
-	public HandlerList getHandlerList()
+	public static HandlerList getHandlerList()
 	{ return handlers; }
 	
 	public Player getPlayer()
@@ -34,27 +34,27 @@ public class FinishAnswerEvent extends Event implements Cancellable
 	{
 		if(Config.getBoolean("Finish.Permissions.Use"))
 		{
-			if(TestqUiz.p.permission != null) return true;
+			if(TestqUiz.permission != null) return true;
 			return false;
 		}
 		return false;
 	}
 	
 	public Permission getPermissions()
-	{ return TestqUiz.p.permission; }
+	{ return TestqUiz.permission; }
 	
 	public boolean isUsingEconomy()
 	{
 		if(Config.getBoolean("Finish.Permissions.Reward.Use Economy"))
 		{
-			if(TestqUiz.p.economy != null) return true;
+			if(TestqUiz.economy != null) return true;
 			return false;
 		}
 		return false;
 	}
 	
 	public Economy getEconomy()
-	{ return TestqUiz.p.economy; }
+	{ return TestqUiz.economy; }
 	
 	public boolean isCancelled()
 	{ return cancelled; }

@@ -1,8 +1,5 @@
 package me.number1_Master.TestqUiz.Listeners;
 
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -50,15 +47,14 @@ public class FinishListener implements Listener
 		}
 		if(e.isUsingPermissions())
 		{
-			Permission permission = e.getPermissions();
 			World world = Bukkit.getServer().getWorld(Config.getString("Finish.Permissions.World"));
 			String fromGroup = Config.getString("Finish.Permissions.From Group");
 			String toGroup = Config.getString("Finish.Permissions.To Group");
 			
-			if(permission.playerInGroup(world, playerName, fromGroup))
+			if(e.getPermissions().playerInGroup(world, playerName, fromGroup))
 			{
-				permission.playerAddGroup(world, playerName, toGroup);
-				if(!(Config.getBoolean("Finish.Permissions.Add or Change"))) permission.playerRemoveGroup(world, playerName, fromGroup);
+				e.getPermissions().playerAddGroup(world, playerName, toGroup);
+				if(!(Config.getBoolean("Finish.Permissions.Add or Change"))) e.getPermissions().playerRemoveGroup(world, playerName, fromGroup);
 	
 				String changeMsg = prefix + Messages.getString("Messages.To-Player.Group Change");
 				changeMsg = changeMsg.replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
@@ -68,17 +64,15 @@ public class FinishListener implements Listener
 					
 				if(e.isUsingEconomy())
 				{
-					Economy economy = e.getEconomy();
+					if(!(e.getEconomy().hasAccount(playerName))) e.getEconomy().createPlayerAccount(playerName);
 					
-					if(!(economy.hasAccount(playerName))) economy.createPlayerAccount(playerName);
-					
-					String oldAmount = economy.format(economy.getBalance(playerName));
-					economy.depositPlayer(playerName, Config.getDouble("Finish.Permissions.Reward.Economy Amount"));
-					String newAmount = economy.format(economy.getBalance(playerName));
+					String oldAmount = e.getEconomy().format(e.getEconomy().getBalance(playerName));
+					e.getEconomy().depositPlayer(playerName, Config.getDouble("Finish.Permissions.Reward.Economy Amount"));
+					String newAmount = e.getEconomy().format(e.getEconomy().getBalance(playerName));
 					
 					String amount;
-					if(Config.getInt("Finish.Permissions.Reward.Economy Amount") == 1) amount = Config.getDouble("Finish.Permissions.Reward.Economy Amount") + " " + economy.currencyNameSingular();
-					else amount = Config.getDouble("Finish.Permissions.Reward.Economy Amount") + " " + economy.currencyNamePlural();
+					if(Config.getInt("Finish.Permissions.Reward.Economy Amount") == 1) amount = Config.getDouble("Finish.Permissions.Reward.Economy Amount") + " " + e.getEconomy().currencyNameSingular();
+					else amount = Config.getDouble("Finish.Permissions.Reward.Economy Amount") + " " + e.getEconomy().currencyNamePlural();
 					
 					String economyRewardMsg = prefix + Messages.getString("Messages.To-Player.Economy Reward");
 					economyRewardMsg = economyRewardMsg.replaceAll("PLAYERNAME", ChatColor.YELLOW + playerName + ChatColor.GOLD);

@@ -44,7 +44,7 @@ public class IncorrectAnswerEvent extends Event implements Cancellable
 	public HandlerList getHandlers()
 	{ return handlers; }
 	
-	public HandlerList getHandlerList()
+	public static HandlerList getHandlerList()
 	{ return handlers; }
 	
 	public Player getPlayer()
