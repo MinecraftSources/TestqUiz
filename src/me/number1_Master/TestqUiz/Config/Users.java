@@ -21,14 +21,14 @@ public class Users
 		
 		users = YamlConfiguration.loadConfiguration(usersFile);
 		
-		users.options().header("Check out http://bit.ly/TestqUizConfiguration for help!");
+		users.options().header("Check out http://bit.ly/TestqUizConfiguration for help!\n#DO NOT TOUCH THIS UNLESS YOU KNOW WHAT YOU ARE DOING!");
 		
 		users.addDefault("Passed", new ArrayList<String>());
 		
 		users.options().copyDefaults(true);
 		save();
 	}
-	public static void save()
+	private static void save()
 	{
 		if(users == null || usersFile == null) return;
 		
@@ -49,5 +49,6 @@ public class Users
 		ArrayList<String> passed = (ArrayList<String>) getStringList(path);
 		passed.add(value);
 		users.set(path, passed);
+		save();
 	}
 }

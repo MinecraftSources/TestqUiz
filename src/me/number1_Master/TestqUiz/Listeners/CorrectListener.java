@@ -1,6 +1,7 @@
 package me.number1_Master.TestqUiz.Listeners;
 
 import me.number1_Master.TestqUiz.Config.Config;
+import me.number1_Master.TestqUiz.Config.Messages;
 import me.number1_Master.TestqUiz.Events.CorrectAnswerEvent;
 import me.number1_Master.TestqUiz.Utils.Log;
 import me.number1_Master.TestqUiz.Utils.Utils;
@@ -10,8 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
-import com.mysql.jdbc.Messages;
 
 public class CorrectListener implements Listener
 {

@@ -11,12 +11,12 @@ import org.bukkit.event.HandlerList;
 public class FinishAnswerEvent extends Event implements Cancellable
 {
 	private static final HandlerList handlers = new HandlerList();
-	private Player player;
+	private final Player player;
 	private boolean cancelled = false;
 	
 	public FinishAnswerEvent(Player player)
 	{
-		player = this.player;
+		this.player = player;
 	}
 	
 	public HandlerList getHandlers()
@@ -52,6 +52,6 @@ public class FinishAnswerEvent extends Event implements Cancellable
 	{ return cancelled; }
 	
 	public void setCancelled(boolean cancelled)
-	{ cancelled = this.cancelled; }
+	{ this.cancelled = cancelled; }
 
 }

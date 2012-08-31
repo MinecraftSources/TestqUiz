@@ -11,7 +11,7 @@ import org.bukkit.event.HandlerList;
 public class IncorrectAnswerEvent extends Event implements Cancellable
 {
 	private static final HandlerList handlers = new HandlerList();
-	private Player player;
+	private final Player player;
 	private boolean bypassing = false;
 	private boolean kicking = false;
 	private boolean banning = false;
@@ -19,7 +19,7 @@ public class IncorrectAnswerEvent extends Event implements Cancellable
 	
 	public IncorrectAnswerEvent(Player player)
 	{
-		player = this.player;
+		this.player = player;
 		
 		if(TestqUiz.p.incorrectBypass.contains(player.getName())) bypassing = true;
 		
@@ -93,5 +93,5 @@ public class IncorrectAnswerEvent extends Event implements Cancellable
 	{ return cancelled; }
 	
 	public void setCancelled(boolean cancelled)
-	{ cancelled = this.cancelled; }
+	{ this.cancelled = cancelled; }
 }

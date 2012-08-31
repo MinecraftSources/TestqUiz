@@ -6,7 +6,9 @@ import java.util.List;
 
 import me.number1_Master.TestqUiz.TestqUiz;
 import me.number1_Master.TestqUiz.Utils.Log;
+import me.number1_Master.TestqUiz.Utils.Update;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -18,15 +20,17 @@ public class Config
 	public static String[] itemRewards = {"272 1" , "273 1", "274 1", "275 1", "5 16"};
 	
 	public static void reload()
-	{
+	{	
 		if(configFile == null) configFile = new File(TestqUiz.dir, "config.yml");
 		
 		config = YamlConfiguration.loadConfiguration(configFile);
 		
+		Update.config(configFile);
+		
 		config.options().header("Check out http://bit.ly/TestqUizConfiguration for help!");
 		
 		config.addDefault("General.Start.Time", 60);
-		config.addDefault("General.version", "2.3");
+		config.addDefault("General.Version", "2.0.7");
 		config.addDefault("General.Start.Kick.Use", true);
 		config.addDefault("General.Start.Kick.Command", "kick PLAYERNAME Turn around and go read the rules!");
 		config.addDefault("General.Start.Teleport to Spawn", true);
@@ -80,7 +84,7 @@ public class Config
 		config.options().copyDefaults(true);
 		save();
 	}
-	public static void save()
+	private static void save()
 	{
 		if(config == null || configFile == null) return;
 		
@@ -90,8 +94,15 @@ public class Config
 		{ Log.s("Could not save config.yml!"); }
 	}
 	private static void check()
+	{ if(config == null || configFile == null) reload(); }
+	public static ConfigurationSection getConfigSection(String path)
 	{
-		if(config == null || configFile == null) reload();
+		return config.getConfigurationSection(path);
+	}
+	public static Object get(String path)
+	{
+		check();
+		return config.get(path);
 	}
 	public static boolean getBoolean(String path)
 	{
@@ -117,5 +128,11 @@ public class Config
 	{
 		check();
 		return config.getStringList(path);
+	}
+	public static void set(String path, Object value)
+	{
+		check();
+		config.set(path, value);
+		save();
 	}
 }

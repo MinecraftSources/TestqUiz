@@ -67,7 +67,7 @@ public class TestqUiz extends JavaPlugin
 		dir = getDataFolder();
 		Config.reload();
 		Messages.reload();
-		Users.reload();	
+		Users.reload();
 		
 		getServer().getPluginManager().registerEvents(pListener, this);
 		getServer().getPluginManager().registerEvents(bListener, this);
@@ -76,7 +76,6 @@ public class TestqUiz extends JavaPlugin
 		getServer().getPluginManager().registerEvents(cListener, this);
 		getServer().getPluginManager().registerEvents(fListener, this);
 		getCommand("TestqUiz").setExecutor(new TestqUizCommand());	
-		
 		Log.i("I am ready to test your players!");
 	}
 	

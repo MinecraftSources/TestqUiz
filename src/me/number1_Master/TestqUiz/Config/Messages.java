@@ -50,13 +50,7 @@ public class Messages
 		messages.options().copyDefaults(true);
 		save();
 	}
-	public static FileConfiguration get()
-	{
-		if(messages == null || messagesFile == null) reload();
-		
-		return messages;
-	}
-	public static void save()
+	private static void save()
 	{
 		if(messages == null || messagesFile == null) return;
 		
@@ -69,5 +63,11 @@ public class Messages
 	{
 		if(messages == null || messagesFile == null) reload();
 		return messages.getString(path);
+	}
+	public static void set(String path, Object value)
+	{
+		if(messages == null || messagesFile == null) reload();
+		messages.set(path, value);
+		save();
 	}
 }

@@ -9,6 +9,7 @@ import me.number1_Master.TestqUiz.Events.FinishAnswerEvent;
 import me.number1_Master.TestqUiz.Events.IncorrectAnswerEvent;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -66,14 +67,14 @@ public class PlayerListener implements Listener
 
 		if(TestqUiz.p.notPassed.containsKey(playerName) && TestqUiz.p.notPassed.get(playerName) <= System.currentTimeMillis()) TestqUiz.p.notPassed.remove(playerName);
 		
-		if(TestqUiz.p.cheaters.containsKey(playerName) && TestqUiz.p.cheaters.get(player) <= System.currentTimeMillis())
+		if(TestqUiz.p.cheaters.containsKey(playerName) && TestqUiz.p.cheaters.get(playerName) <= System.currentTimeMillis())
 		{
 			TestqUiz.p.cheaters.remove(playerName);
-			for(Object o : TestqUiz.p.cheatLocs.keySet())
+			for(Location loc : TestqUiz.p.cheatLocs.keySet())
 			{
-				if(TestqUiz.p.cheatLocs.get(o).equals(player))
+				if(TestqUiz.p.cheatLocs.get(loc).equals(player))
 				{
-					TestqUiz.p.cheatLocs.remove(o);
+					TestqUiz.p.cheatLocs.remove(loc);
 					break;
 				}
 			}

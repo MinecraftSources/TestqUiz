@@ -12,13 +12,13 @@ import org.bukkit.event.HandlerList;
 public class AnswerPreprocessEvent extends Event implements Cancellable
 {
 	private static final HandlerList handlers = new HandlerList();
-	private Player player;
+	private final Player player;
 	private Sign sign;
 	private boolean cancelled = false;
 	
 	public AnswerPreprocessEvent(Player player, Sign sign)
 	{
-		player = this.player;
+		this.player = player;
 		sign = this.sign;
 	}
 	
@@ -58,6 +58,6 @@ public class AnswerPreprocessEvent extends Event implements Cancellable
 	{ return cancelled; }
 
 	public void setCancelled(boolean cancelled)
-	{ cancelled = this.cancelled; }
+	{ this.cancelled = cancelled; }
 
 }
