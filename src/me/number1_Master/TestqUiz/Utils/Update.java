@@ -11,30 +11,35 @@ public class Update
 {
 	public static void config(File configFile)
 	{
-		if(Config.getString("General.Version").equalsIgnoreCase("2.3"))
+		if(Config.getString("General.version") != null && Config.getString("General.version").equals("2.3"))
 		{
-			Config.set("General.Version", null);
-			move("Messages.To-Player");
-			move("Messages.Announce");
-			move("Messages.Log");
-			move("Messages.Notify");
-			Config.set("Messages", null);
-			
 			File oldFile = new File(TestqUiz.dir, "config_old.yml");
 			if(oldFile.exists())
 			{
 				try
 				{ oldFile.delete(); }
 				catch(Exception err)
-				{ Log.w(err.getMessage()); }
+				{ Log.w("Could NOT delete old "); }
 			}
 			configFile.renameTo(oldFile);
+			
+			Config.set("General.version", null);
+			Config.set("General.Logout", null);
+			if(Config.get("Messages") != null)
+			{
+				move("Messages.To-Player");
+				move("Messages.Announce");
+				move("Messages.Log");
+				move("Messages.Notify");
+				Config.set("Messages", null);
+				Log.i("Moving Messages in config.yml to Messages in messages.yml ...");
+			}
 		}
 	}
 	private static void move(String startPath)
 	{
 		HashMap<String, String> moveNodes = new HashMap<String, String>();
-		
+
 		for(String s : Config.getConfigSection(startPath).getKeys(true))
 		{
 			String path = startPath + "." + s;

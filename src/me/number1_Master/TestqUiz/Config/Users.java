@@ -37,16 +37,18 @@ public class Users
 		catch(Exception err)
 		{ Log.s("Could not save users.yml!"); }
 	}
+	private static void check()
+	{ if(users == null || usersFile == null) reload(); }
 	public static List<String> getStringList(String path)
 	{
-		if(users == null || usersFile == null) reload();
+		check();
 		return users.getStringList(path);
 	}
 	public static void addToStringList(String path, String value)
 	{
-		if(users == null || usersFile == null) reload();
-		
+		check();	
 		ArrayList<String> passed = (ArrayList<String>) getStringList(path);
+		if(passed.contains(value)) return;
 		passed.add(value);
 		users.set(path, passed);
 		save();

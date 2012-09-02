@@ -46,7 +46,7 @@ public class FinishListener implements Listener
 		else
 		{
 			if(Config.getBoolean("Finish.Log")) Log.i(logMsg);
-			if(Config.getBoolean("Finish.Notify")) Utils.notify(playerName, "TestqUiz.finish.notify", "Finish");
+			if(Config.getBoolean("Finish.Notify")) Utils.notify(playerName, "finish");
 		}
 		if(e.isUsingPermissions())
 		{

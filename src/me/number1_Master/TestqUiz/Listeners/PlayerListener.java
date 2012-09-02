@@ -72,7 +72,7 @@ public class PlayerListener implements Listener
 			TestqUiz.p.cheaters.remove(playerName);
 			for(Location loc : TestqUiz.p.cheatLocs.keySet())
 			{
-				if(TestqUiz.p.cheatLocs.get(loc).equals(player))
+				if(TestqUiz.p.cheatLocs.get(loc).equals(playerName))
 				{
 					TestqUiz.p.cheatLocs.remove(loc);
 					break;
@@ -87,23 +87,27 @@ public class PlayerListener implements Listener
 		Player player = e.getPlayer();
 		String playerName = player.getName();
 		
-		if(Users.getStringList("Passed").contains(playerName)) return;
+		if(TestqUiz.p.clearLag.containsKey(playerName) && Bukkit.getServer().getScheduler().isQueued(TestqUiz.p.clearLag.get(playerName)))
+		{ Bukkit.getServer().getScheduler().cancelTask(TestqUiz.p.clearLag.get(playerName)); }
 		
-		if(TestqUiz.p.clearLag.containsKey(e.getPlayer())
-				&& Bukkit.getScheduler().isCurrentlyRunning(TestqUiz.p.clearLag.get(e.getPlayer().getName()))) Bukkit.getScheduler().cancelTask(TestqUiz.p.clearLag.get(e.getPlayer().getName()));
+		if(Users.getStringList("Passed").contains(playerName)) return;
 		
 		if(!(TestqUiz.p.notPassed.containsKey(e.getPlayer().getName()))) TestqUiz.p.notPassed.put(e.getPlayer().getName(), System.currentTimeMillis() + (Config.getInt("General.Start.Time") * 1000));
 	}	
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent e)
+	public void onPlayerQuit(final PlayerQuitEvent e)
 	{				
-		final String playerName = e.getPlayer().getName();
+		Player player = e.getPlayer();
+		String playerName = player.getName();
 		
 		int task = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
 		{
-			@Override
 			public void run()
 			{
+				System.out.println("Clearing lag ...");
+				
+				String playerName = e.getPlayer().getName();
+				
 				if(TestqUiz.p.incorrectBypass.contains(playerName)) TestqUiz.p.incorrectBypass.remove(playerName);
 				
 				if(TestqUiz.p.incorrectAmount.containsKey(playerName)) TestqUiz.p.incorrectAmount.remove(playerName);
@@ -112,12 +116,21 @@ public class PlayerListener implements Listener
 
 				if(TestqUiz.p.notPassed.containsKey(playerName)) TestqUiz.p.notPassed.remove(playerName);
 
-				//if(TestqUiz.p.cheating.containsKey(PreprocessListener.location)) TestqUiz.p.cheating.remove(PreprocessListener.location);
-
-				//if(TestqUiz.p.cheaters.contains(playerName)) TestqUiz.p.cheaters.remove(playerName);
+				if(TestqUiz.p.cheaters.containsKey(playerName))
+				{
+					TestqUiz.p.cheaters.remove(playerName);
+					for(Location loc : TestqUiz.p.cheatLocs.keySet())
+					{
+						if(TestqUiz.p.cheatLocs.get(loc).equals(playerName))
+						{
+							TestqUiz.p.cheatLocs.remove(loc);
+							break;
+						}
+					}
+				}
 			}
 			
-		}, Config.getInt("General.Logout.Clear") * 20);
+		}, 150*20);
 		TestqUiz.p.clearLag.put(playerName, task);
 	}
 }

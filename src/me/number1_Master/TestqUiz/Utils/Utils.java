@@ -19,11 +19,11 @@ public class Utils
 		else return prefix;
 	}
 	
-	public static void notify(String playerName, String permissionNode, String type)
+	public static void notify(String playerName, String type)
 	{
 		for(Player player : Bukkit.getServer().getOnlinePlayers())
 		{
-			if(player.hasPermission(permissionNode)) player.sendMessage(getPrefix(true) + Messages.getString("Messages.Notify." + type).replaceAll("PLAYERNAME", y + playerName + o));
+			if(player.hasPermission("TestqUiz.notify." + type)) player.sendMessage(getPrefix(true) + Messages.getString("Messages.Notify." + type).replaceAll("PLAYERNAME", y + playerName + o));
 		}
 	}
 	public static void teleport(Player player)

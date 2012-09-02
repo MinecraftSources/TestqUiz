@@ -19,51 +19,42 @@ public class BlockListener implements Listener
 	{
 		Player player = e.getPlayer();
 		
-		if (e.getLine(0).equals("[TestqUiz]"))
+		if(e.getLine(0).equals("[TestqUiz]"))
 		{
-			if (e.getLine(2).equals("") && e.getLine(3).equals(""))
+			if(e.getLine(2).equals("") && e.getLine(3).equals(""))
 			{
-				if (e.getLine(1).equalsIgnoreCase("Correct"))
+				if(e.getLine(1).equalsIgnoreCase("Correct"))
 				{
-					if (player.hasPermission("TestqUiz.correct.create")) 
-					{
-						player.sendMessage(prefix + "Your answer has been made!");
-						return;
-					}
-					else
+					if(!(player.hasPermission("TestqUiz.correct.create")))
 					{
 						e.setCancelled(true);
 						player.sendMessage(prefix + "You don't have permission to create that type of sign!");
 						return;
 					}
+					player.sendMessage(prefix + "Your answer has been made!");
+					return;
 				}
 				else if (e.getLine(1).equalsIgnoreCase("Incorrect"))
 				{
-					if (player.hasPermission("TestqUiz.incorrect.create")) 
-					{
-						player.sendMessage(prefix + "Your answer has been made!");
-						return;
-					}
-					else
+					if(!(player.hasPermission("TestqUiz.incorrect.create")))
 					{
 						e.setCancelled(true);
 						player.sendMessage(prefix + "You don't have permission to create that type of sign!");
 						return;
 					}
+					player.sendMessage(prefix + "Your answer has been made!");
+					return;
 				}
 				else if (e.getLine(1).equalsIgnoreCase("Finish"))
 				{
-					if (player.hasPermission("TestqUiz.finish.create")) 
-					{
-						player.sendMessage(prefix + "Your answer has been made!");
-						return;
-					}
-					else
+					if(!(player.hasPermission("TestqUiz.finish.create")))
 					{
 						e.setCancelled(true);
 						player.sendMessage(prefix + "You don't have permission to create that type of sign!");
 						return;
 					}
+					player.sendMessage(prefix + "Your answer has been made!");
+					return;
 				}
 				else 
 				{
@@ -91,45 +82,30 @@ public class BlockListener implements Listener
 			{
 				if(sign.getLine(1).equalsIgnoreCase("Correct"))
 				{
-					if (player.hasPermission("TestqUiz.correct.break")) 
-					{
-						player.sendMessage(prefix + "Your answer has been made!");
-						return;
-					}
-					else
+					if(!(player.hasPermission("TestqUiz.correct.break")))
 					{
 						e.setCancelled(true);
 						player.sendMessage(prefix + "You don't have permission to destroy that type of sign!");
-						return;
 					}
+					return;
 				}
 				if(sign.getLine(1).equalsIgnoreCase("Incorrect"))
 				{
-					if (player.hasPermission("TestqUiz.incorrect.break")) 
-					{
-						player.sendMessage(prefix + "Your answer has been made!");
-						return;
-					}
-					else
+					if(!(player.hasPermission("TestqUiz.incorrect.break")))
 					{
 						e.setCancelled(true);
 						player.sendMessage(prefix + "You don't have permission to destroy that type of sign!");
-						return;
 					}
+					return;
 				}
 				if(sign.getLine(1).equalsIgnoreCase("Finish"))
 				{
-					if (player.hasPermission("TestqUiz.finish.break")) 
-					{
-						player.sendMessage(prefix + "Your answer has been made!");
-						return;
-					}
-					else
+					if(!(player.hasPermission("TestqUiz.finish.break")))
 					{
 						e.setCancelled(true);
 						player.sendMessage(prefix + "You don't have permission to destroy that type of sign!");
-						return;
 					}
+					return;
 				}
 			}
 		}

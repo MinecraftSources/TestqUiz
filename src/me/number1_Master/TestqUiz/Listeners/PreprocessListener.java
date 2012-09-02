@@ -22,16 +22,16 @@ public class PreprocessListener implements Listener
 		Player player = e.getPlayer();
 		String playerName = player.getName();
 		
-		if(!!(e.isStartingEarly()))
+		if(!(e.isStartingEarly()))
 		{	
 			if(!(e.isSpam()))
 			{	
 				Location l = player.getLocation();
 				Location location = new Location(l.getWorld(), Math.round(l.getX()), Math.round(l.getY()), Math.round(l.getZ()));
-				
+
 				if(e.isCheating(location))
 				{
-					Player cheater1 = TestqUiz.p.cheatLocs.get(location);
+					Player cheater1 = Bukkit.getServer().getPlayerExact(TestqUiz.p.cheatLocs.get(location));
 					
 					if(Config.getBoolean("General.Cheating.Teleport to Spawn"))
 					{
@@ -50,16 +50,10 @@ public class PreprocessListener implements Listener
 				{
 					if(!(TestqUiz.p.cheatLocs.containsKey(location)))
 					{
-						TestqUiz.p.cheatLocs.put(location, player);
-						TestqUiz.p.cheaters.put(playerName, System.currentTimeMillis());
+						TestqUiz.p.cheatLocs.put(location, playerName);
+						TestqUiz.p.cheaters.put(playerName, System.currentTimeMillis() + 7000);
 						return;
 					}
-					else if(TestqUiz.p.cheatLocs.containsKey(location) && TestqUiz.p.cheaters.get(location).equals(player))
-					{
-						e.setCancelled(true);
-						return;
-					}
-					else return;
 				}
 			}
 			e.setCancelled(true);

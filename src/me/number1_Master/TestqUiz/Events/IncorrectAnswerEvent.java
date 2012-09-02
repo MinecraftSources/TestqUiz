@@ -29,7 +29,7 @@ public class IncorrectAnswerEvent extends Event implements Cancellable
 			
 			if(Config.getBoolean("Incorrect Answer.Banning.Use"))
 			{
-				Integer amount;
+				int amount;
 				if(!(Config.getBoolean("Incorrect Answer.Banning.Base Off"))) amount = Config.getInt("Incorrect Answer.Banning.Amount");
 				else
 				{

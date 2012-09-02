@@ -34,7 +34,7 @@ public class CorrectListener implements Listener
 		else
 		{
 			if(Config.getBoolean("Correct Answer.Log")) Log.i(logMsg);
-			if(Config.getBoolean("Correct.Notify")) Utils.notify(playerName, "TestqUiz.correct.notify", "Correct");
+			if(Config.getBoolean("Correct.Notify")) Utils.notify(playerName, "correct");
 		}
 	}
 }

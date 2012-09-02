@@ -26,11 +26,11 @@ public class Config
 		config = YamlConfiguration.loadConfiguration(configFile);
 		
 		Update.config(configFile);
+
+		config.options().header("PLEASE look at http://bit.ly/TestqUizConfiguration for help!");
 		
-		config.options().header("Check out http://bit.ly/TestqUizConfiguration for help!");
-		
+		config.addDefault("General.Version", "2.0.8");
 		config.addDefault("General.Start.Time", 60);
-		config.addDefault("General.Version", "2.0.7");
 		config.addDefault("General.Start.Kick.Use", true);
 		config.addDefault("General.Start.Kick.Command", "kick PLAYERNAME Turn around and go read the rules!");
 		config.addDefault("General.Start.Teleport to Spawn", true);
@@ -40,7 +40,6 @@ public class Config
 		config.addDefault("General.Cheating.Kick.Command", "kick PLAYERNAME Stop cheating!");
 		config.addDefault("General.Cheating.Teleport to Spawn", true);
 		
-		config.addDefault("General.Logout.Clear", 120);
 		config.addDefault("General.Teleport Command", "P: spawn");
 		
 		
@@ -64,9 +63,11 @@ public class Config
 		config.addDefault("Incorrect Answer.Banning.Log", true);
 		config.addDefault("Incorrect Answer.Banning.Command", "ban PLAYERNAME You got banned for failing to read the rules!");
 				
+		
 		config.addDefault("Correct Answer.Announce", false);
 		config.addDefault("Correct Answer.Log", true);
 		config.addDefault("Correct Answer.Notify", false);
+		
 		
 		config.addDefault("Finish.Announce", true);
 		config.addDefault("Finish.Log", false);
@@ -81,6 +82,7 @@ public class Config
 		config.addDefault("Finish.Permissions.Reward.Use Items", false);
 		config.addDefault("Finish.Permissions.Reward.Items", Arrays.asList(itemRewards));
 		
+		config.options().copyHeader(true);
 		config.options().copyDefaults(true);
 		save();
 	}

@@ -36,63 +36,50 @@ public class IncorrectListener implements Listener
 		String announceMsg = prefix + Messages.getString("Messages.Announce.Incorrect").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
 		String logMsg = Messages.getString("Messages.Log.Incorrect").replaceAll("PLAYERNAME", playerName);
 		
-		Utils.teleport(player);
-		
+		Utils.teleport(player);		
 		player.sendMessage(mainMsg);
 		
 		if(Config.getBoolean("Incorrect Answer.Announce")) Bukkit.getServer().broadcastMessage(announceMsg);
 		else
 		{
 			if(Config.getBoolean("Incorrect Answer.Log")) Log.i(logMsg);
-			if(Config.getBoolean("Incorrect.Notify")) Utils.notify(playerName, "TestqUiz.incorrect.notify", "Incorrect");
+			if(Config.getBoolean("Incorrect.Notify")) Utils.notify(playerName, "incorrect");
 		}
 		if(Config.getBoolean("Incorrect Answer.Kicking.Use") || Config.getBoolean("Incorrect Answer.Banning.Use")) e.addWrongAnswer(1);
 		
-		/*Bukkit.getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
+		if(e.isBanning())
 		{
-			public void run()
-			{*/
-			if(e.isKicking())
+			String banCmd = Config.getString("Incorrect Answer.Banning.Command").replace("PLAYERNAME", playerName);
+			String banAnnounceMsg = prefix + Messages.getString("Messages.Announce.Ban").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
+			String banLogMsg = Messages.getString("Messages.Log.Ban").replaceAll("PLAYERNAME", playerName);
+			
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), banCmd);
+			TestqUiz.p.incorrectAmount.remove(playerName);
+				
+			if(TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Announce")) Bukkit.getServer().broadcastMessage(banAnnounceMsg);
+			else
 			{
-				String kickCmd = Config.getString("Incorrect Answer.Kicking.Command").replace("PLAYERNAME", playerName);
-				String kickAnnounceMsg = prefix + Messages.getString("Messages.Announce.Kick").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
-				String kickLogMsg = Messages.getString("Messages.Log.Kick").replaceAll("PLAYERNAME", playerName);
+				if(TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Log")) Log.i(banLogMsg);
+				if(TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Notify")) Utils.notify(playerName, "ban");
+			}
+			return;
+		}
+		if(e.isKicking())
+		{
+			String kickCmd = Config.getString("Incorrect Answer.Kicking.Command").replace("PLAYERNAME", playerName);
+			String kickAnnounceMsg = prefix + Messages.getString("Messages.Announce.Kick").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
+			String kickLogMsg = Messages.getString("Messages.Log.Kick").replaceAll("PLAYERNAME", playerName);
 				
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), kickCmd);		
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), kickCmd);		
 				
-				if(Config.getBoolean("Incorrect Answer.Kicking.Reset")) TestqUiz.p.incorrectAmount.remove(playerName);		
+			if(Config.getBoolean("Incorrect Answer.Kicking.Reset")) e.subtractWrongAnswer(100);		
 					
-				if(Config.getBoolean("Incorrect Answer.Kicking.Announce")) Bukkit.getServer().broadcastMessage(kickAnnounceMsg);
-				else
-				{
-					if(Config.getBoolean("Incorrect Answer.Kicking.Log")) Log.i(kickLogMsg);
-					/*if(Config.getBoolean("Incorrect Answer.Kicking.Notify"))
-						{
-							OtherMethods.notify("TestqUiz.notify.kick", prefix, "Kick", playerName);
-						}
-					}*/		
-				}
-			}
-			if(e.isBanning())
+			if(Config.getBoolean("Incorrect Answer.Kicking.Announce")) Bukkit.getServer().broadcastMessage(kickAnnounceMsg);
+			else
 			{
-				String banCmd = Config.getString("Incorrect Answer.Banning.Command").replace("PLAYERNAME", playerName);
-				String banAnnounceMsg = prefix + Messages.getString("Messages.Announce.Ban").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
-				String banLogMsg = Messages.getString("Messages.Log.Ban").replaceAll("PLAYERNAME", playerName);
-				
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), banCmd);
-				TestqUiz.p.incorrectAmount.remove(playerName);
-				
-				if(TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Announce")) Bukkit.getServer().broadcastMessage(banAnnounceMsg);
-				else
-				{
-					if(TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Log")) Log.i(banLogMsg);
-					/*if(TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Notify") == true && TestqUiz.p.getConfig().getBoolean("Incorrect Answer.Banning.Announce") == false)
-					{
-						OtherMethods.notify("TestqUiz.notify.ban", prefix, "Ban", playerName);
-					}*/
-				}
+				if(Config.getBoolean("Incorrect Answer.Kicking.Log")) Log.i(kickLogMsg);
+				if(Config.getBoolean("Incorrect Answer.Kicking.Notify")) Utils.notify(playerName, "kick");	
 			}
-			/*}
-		}, 2);*/
+		}
 	}
 }

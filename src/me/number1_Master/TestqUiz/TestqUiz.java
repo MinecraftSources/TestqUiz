@@ -16,9 +16,7 @@ import me.number1_Master.TestqUiz.Listeners.PreprocessListener;
 import me.number1_Master.TestqUiz.Utils.Log;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,19 +28,19 @@ public class TestqUiz extends JavaPlugin
 	public static Permission permission = null;
 	public static Economy economy = null;
 	
-	PlayerListener pListener = new PlayerListener();
-	BlockListener bListener = new BlockListener();
-	PreprocessListener ppListener = new PreprocessListener();
-	IncorrectListener iListener = new IncorrectListener();
-	CorrectListener cListener = new CorrectListener();
-	FinishListener fListener = new FinishListener();
+	private PlayerListener pListener = new PlayerListener();
+	private BlockListener bListener = new BlockListener();
+	private PreprocessListener ppListener = new PreprocessListener();
+	private IncorrectListener iListener = new IncorrectListener();
+	private CorrectListener cListener = new CorrectListener();
+	private FinishListener fListener = new FinishListener();
 	
 	public ArrayList<String> incorrectBypass = new ArrayList<String>();
 	public HashMap<String, Integer> incorrectAmount = new HashMap<String, Integer>();
 	public HashMap<String,Long> antiSpam = new HashMap<String, Long>();
 	public HashMap<String, Long> notPassed = new HashMap<String, Long>();
-	public HashMap<String,Long> cheaters = new HashMap<String, Long>();
-	public HashMap<Location, Player> cheatLocs = new HashMap<Location, Player>();
+	public HashMap<String, Long> cheaters = new HashMap<String, Long>();
+	public HashMap<Location, String> cheatLocs = new HashMap<Location, String>();
 	public HashMap<String, Integer> clearLag = new HashMap<String, Integer>();
 	
 	@Override
@@ -65,9 +63,9 @@ public class TestqUiz extends JavaPlugin
 		else if(permission != null && economy == null) Log.i("Vault hooked in for Permissions. Economy disabled!");
 
 		dir = getDataFolder();
-		Config.reload();
-		Messages.reload();
 		Users.reload();
+		Messages.reload();
+		Config.reload();
 		
 		getServer().getPluginManager().registerEvents(pListener, this);
 		getServer().getPluginManager().registerEvents(bListener, this);
