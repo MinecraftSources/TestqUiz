@@ -20,7 +20,7 @@ public class PreprocessListener implements Listener
 		if(e.isCancelled()) return;		
 
 		Player player = e.getPlayer();
-		String playerName = player.getName();
+		final String playerName = player.getName();
 		
 		if(!(e.isStartingEarly()))
 		{	
@@ -31,7 +31,7 @@ public class PreprocessListener implements Listener
 
 				if(e.isCheating(location))
 				{
-					Player cheater1 = Bukkit.getServer().getPlayerExact(TestqUiz.p.cheatLocs.get(location));
+					final Player cheater1 = Bukkit.getServer().getPlayerExact(TestqUiz.p.cheatLocs.get(location));
 					
 					if(Config.getBoolean("General.Cheating.Teleport to Spawn"))
 					{
@@ -40,8 +40,15 @@ public class PreprocessListener implements Listener
 					}
 					if(Config.getBoolean("General.Cheating.Kick.Use"))
 					{
-						if(Config.getBoolean("General.Cheating.Player")) Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", cheater1.getName()));
-						else Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", playerName));
+						Bukkit.getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
+						{
+							public void run()
+							{
+								if(Config.getBoolean("General.Cheating.Player")) 
+									Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", cheater1.getName()));
+								else Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", playerName));
+							}
+						}, 5);
 					}
 					e.setCancelled(true);
 					return;
@@ -63,8 +70,14 @@ public class PreprocessListener implements Listener
 		{
 			if(Config.getBoolean("General.Start.Teleport to Spawn")) Utils.teleport(player);
 
-			if(Config.getBoolean("General.Start.Kick.Use")) Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName));
-				
+			if(Config.getBoolean("General.Start.Kick.Use"))
+			{
+				Bukkit.getScheduler().scheduleAsyncDelayedTask(TestqUiz.p, new Runnable()
+				{
+					public void run()
+					{ Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName)); }
+				}, 5);
+			}	
 			e.setCancelled(true);
 			return;
 		}

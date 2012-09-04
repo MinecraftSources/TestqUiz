@@ -28,13 +28,6 @@ public class TestqUiz extends JavaPlugin
 	public static Permission permission = null;
 	public static Economy economy = null;
 	
-	private PlayerListener pListener = new PlayerListener();
-	private BlockListener bListener = new BlockListener();
-	private PreprocessListener ppListener = new PreprocessListener();
-	private IncorrectListener iListener = new IncorrectListener();
-	private CorrectListener cListener = new CorrectListener();
-	private FinishListener fListener = new FinishListener();
-	
 	public ArrayList<String> incorrectBypass = new ArrayList<String>();
 	public HashMap<String, Integer> incorrectAmount = new HashMap<String, Integer>();
 	public HashMap<String,Long> antiSpam = new HashMap<String, Long>();
@@ -67,12 +60,12 @@ public class TestqUiz extends JavaPlugin
 		Messages.reload();
 		Config.reload();
 		
-		getServer().getPluginManager().registerEvents(pListener, this);
-		getServer().getPluginManager().registerEvents(bListener, this);
-		getServer().getPluginManager().registerEvents(ppListener, this);
-		getServer().getPluginManager().registerEvents(iListener, this);
-		getServer().getPluginManager().registerEvents(cListener, this);
-		getServer().getPluginManager().registerEvents(fListener, this);
+		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+		getServer().getPluginManager().registerEvents(new BlockListener(), this);
+		getServer().getPluginManager().registerEvents(new PreprocessListener(), this);
+		getServer().getPluginManager().registerEvents(new IncorrectListener(), this);
+		getServer().getPluginManager().registerEvents(new CorrectListener(), this);
+		getServer().getPluginManager().registerEvents(new FinishListener(), this);
 		getCommand("TestqUiz").setExecutor(new TestqUizCommand());	
 		Log.i("I am ready to test your players!");
 	}

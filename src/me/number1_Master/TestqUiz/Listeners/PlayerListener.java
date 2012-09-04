@@ -16,6 +16,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -23,7 +24,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener
 {
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
 		Player player = e.getPlayer();
@@ -104,8 +105,6 @@ public class PlayerListener implements Listener
 		{
 			public void run()
 			{
-				System.out.println("Clearing lag ...");
-				
 				String playerName = e.getPlayer().getName();
 				
 				if(TestqUiz.p.incorrectBypass.contains(playerName)) TestqUiz.p.incorrectBypass.remove(playerName);

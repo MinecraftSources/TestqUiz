@@ -23,9 +23,11 @@ public class IncorrectAnswerEvent extends Event implements Cancellable
 		
 		if(TestqUiz.p.incorrectBypass.contains(player.getName())) bypassing = true;
 		
+		if(Config.getBoolean("Incorrect Answer.Kicking.Use") || Config.getBoolean("Incorrect Answer.Banning.Use")) addWrongAnswer(1);
+		
 		if(TestqUiz.p.incorrectAmount.containsKey(player.getName()))
 		{
-			if(Config.getBoolean("Incorrect Answer.Kicking.Use") && TestqUiz.p.incorrectAmount.get(player.getName()) >= Config.getInt("Incorrect Answer.Kicking.Amount")) kicking = true;
+			if(Config.getBoolean("Incorrect Answer.Kicking.Use") && TestqUiz.p.incorrectAmount.get(player.getName()) >= Config.getInt("Incorrect Answer.Kicking.Amount")) this.kicking = true;
 			
 			if(Config.getBoolean("Incorrect Answer.Banning.Use"))
 			{
@@ -36,7 +38,7 @@ public class IncorrectAnswerEvent extends Event implements Cancellable
 					if(Config.getBoolean("Incorrect Answer.Kicking.Reset")) amount = Config.getInt("Incorrect Answer.Banning.Amount") * Config.getInt("Incorrect Answer.Kicking.Amount");
 					else amount = Config.getInt("Incorrect Answer.Banning.Amount") + Config.getInt("Incorrect Answer.Kicking.Amount") - 1;
 				}
-				if(TestqUiz.p.incorrectAmount.get(player.getName()) >= amount) banning = true;
+				if(TestqUiz.p.incorrectAmount.get(player.getName()) >= amount) this.banning = true;
 			}
 		}
 	}

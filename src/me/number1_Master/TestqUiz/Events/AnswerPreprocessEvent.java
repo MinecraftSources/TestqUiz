@@ -37,20 +37,23 @@ public class AnswerPreprocessEvent extends Event implements Cancellable
 	public boolean isStartingEarly()
 	{
 		if(TestqUiz.p.notPassed.containsKey(player.getName())) return true;
-		return false;
+		else return false;
 	}
 	
 	public boolean isSpam()
 	{
 		if(TestqUiz.p.antiSpam.containsKey(player.getName())) return true;
-		return false;
+		else return false;
 	}
 	
 	public boolean isCheating(Location location)
 	{
-		if(TestqUiz.p.cheatLocs.containsKey(location)
-				&& !(TestqUiz.p.cheatLocs.get(location)).equalsIgnoreCase(player.getName())
-				&& TestqUiz.p.cheaters.get(TestqUiz.p.cheatLocs.get(location)) >= System.currentTimeMillis()) return true;
+		if(TestqUiz.p.cheatLocs.containsKey(location) && !(TestqUiz.p.cheatLocs.get(location)).equals(player.getName()))
+		{
+			String playerName = TestqUiz.p.cheatLocs.get(location);
+			if(TestqUiz.p.cheaters.get(playerName) > System.currentTimeMillis()) return true;
+			else return false;
+		}
 		else return false;
 	}
 

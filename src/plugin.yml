@@ -1,9 +1,9 @@
 name: TestqUiz
-version: 2.0.8
+version: 2.0.9
 main: me.number1_Master.TestqUiz.TestqUiz
 description: This allows you to test your players!
 author: number1_Master / nunber1_Master / number1Master
-softdepend: [Vault]
+softdepend: [Vault, NoCheatPlus]
 commands:
     TestqUiz:
         description: General command for TestqUiz
