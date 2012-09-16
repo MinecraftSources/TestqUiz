@@ -48,7 +48,7 @@ public class PreprocessListener implements Listener
 									Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", cheater1.getName()));
 								else Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Cheating.Kick.Command").replaceAll("PLAYERNAME", playerName));
 							}
-						}, 5);
+						}, 20);
 					}
 					e.setCancelled(true);
 					return;
@@ -61,6 +61,8 @@ public class PreprocessListener implements Listener
 						TestqUiz.p.cheaters.put(playerName, System.currentTimeMillis() + 7000);
 						return;
 					}
+					e.setCancelled(true);
+					return;
 				}
 			}
 			e.setCancelled(true);
@@ -76,7 +78,7 @@ public class PreprocessListener implements Listener
 				{
 					public void run()
 					{ Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName)); }
-				}, 5);
+				}, 20);
 			}	
 			e.setCancelled(true);
 			return;

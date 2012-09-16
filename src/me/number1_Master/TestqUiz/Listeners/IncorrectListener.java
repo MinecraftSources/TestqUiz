@@ -85,6 +85,6 @@ public class IncorrectListener implements Listener
 					}
 				}	
 			}
-		}, 5);
+		}, 20);
 	}
 }

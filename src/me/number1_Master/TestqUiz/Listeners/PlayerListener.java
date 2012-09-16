@@ -40,9 +40,9 @@ public class PlayerListener implements Listener
 			{	
 				AnswerPreprocessEvent preprocessEvent = new AnswerPreprocessEvent(player, sign);
 				Bukkit.getServer().getPluginManager().callEvent(preprocessEvent);
+				TestqUiz.p.antiSpam.put(playerName, System.currentTimeMillis() + 2000);
 				if(preprocessEvent.isCancelled()) return;
 				
-				TestqUiz.p.antiSpam.put(playerName, System.currentTimeMillis() + 2000);
 				if (sign.getLine(1).equalsIgnoreCase("Incorrect"))
 				{
 					IncorrectAnswerEvent incorrectEvent = new IncorrectAnswerEvent(player);
@@ -75,6 +75,7 @@ public class PlayerListener implements Listener
 			{
 				if(TestqUiz.p.cheatLocs.get(loc).equals(playerName))
 				{
+					System.out.println("Location removed!");
 					TestqUiz.p.cheatLocs.remove(loc);
 					break;
 				}

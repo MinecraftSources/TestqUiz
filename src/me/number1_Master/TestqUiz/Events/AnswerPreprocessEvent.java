@@ -48,10 +48,15 @@ public class AnswerPreprocessEvent extends Event implements Cancellable
 	
 	public boolean isCheating(Location location)
 	{
-		if(TestqUiz.p.cheatLocs.containsKey(location) && !(TestqUiz.p.cheatLocs.get(location)).equals(player.getName()))
+		if(TestqUiz.p.cheatLocs.containsKey(location))
 		{
 			String playerName = TestqUiz.p.cheatLocs.get(location);
-			if(TestqUiz.p.cheaters.get(playerName) > System.currentTimeMillis()) return true;
+			if(playerName.equals(player.getName()))
+			{
+				System.out.println(playerName);
+				if(TestqUiz.p.cheaters.get(playerName) >= System.currentTimeMillis()) return true;
+				else return false;
+			}
 			else return false;
 		}
 		else return false;
