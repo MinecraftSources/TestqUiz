@@ -46,7 +46,7 @@ public class IncorrectListener implements Listener
 			if(Config.getBoolean("Incorrect.Notify")) Utils.notify(playerName, "incorrect");
 		}
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
 		{
 			public void run()
 			{

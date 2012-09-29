@@ -40,7 +40,7 @@ public class PreprocessListener implements Listener
 					}
 					if(Config.getBoolean("General.Cheating.Kick.Use"))
 					{
-						Bukkit.getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
+						Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(TestqUiz.p, new Runnable()
 						{
 							public void run()
 							{
@@ -74,7 +74,7 @@ public class PreprocessListener implements Listener
 
 			if(Config.getBoolean("General.Start.Kick.Use"))
 			{
-				Bukkit.getScheduler().scheduleAsyncDelayedTask(TestqUiz.p, new Runnable()
+				Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(TestqUiz.p, new Runnable()
 				{
 					public void run()
 					{ Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Config.getString("General.Start.Kick.Command").replaceAll("PLAYERNAME", playerName)); }

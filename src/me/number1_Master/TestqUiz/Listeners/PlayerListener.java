@@ -29,7 +29,7 @@ public class PlayerListener implements Listener
 	{
 		Player player = e.getPlayer();
 		String playerName = player.getName();
-		Block checkSign = player.getLocation().getBlock().getRelative(BlockFace.DOWN, 2);
+		Block checkSign = e.getTo().getBlock().getRelative(BlockFace.DOWN, 2);
 		
 		if(checkSign.getType() == Material.WALL_SIGN || checkSign.getType() == Material.SIGN_POST)
 		{
