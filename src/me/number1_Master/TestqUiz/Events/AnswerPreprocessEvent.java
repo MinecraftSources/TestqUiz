@@ -54,7 +54,6 @@ public class AnswerPreprocessEvent extends Event implements Cancellable
 			
 			if(!(TestqUiz.p.cheaters.containsKey(player2)))
 			{
-				System.out.println("REMOVING ... Cause: Error!");
 				TestqUiz.p.cheatLocs.remove(location);
 				return false;
 			}
@@ -62,7 +61,6 @@ public class AnswerPreprocessEvent extends Event implements Cancellable
 			{
 				if(TestqUiz.p.cheaters.get(player2) <= System.currentTimeMillis())
 				{
-					System.out.println("REMOVING ... Cause: Time!");
 					TestqUiz.p.cheatLocs.remove(location);
 					TestqUiz.p.cheaters.remove(player2);
 					return false;
