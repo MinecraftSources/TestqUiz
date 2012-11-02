@@ -75,7 +75,6 @@ public class PlayerListener implements Listener
 			{
 				if(TestqUiz.p.cheatLocs.get(loc).equals(playerName))
 				{
-					System.out.println("Location removed!");
 					TestqUiz.p.cheatLocs.remove(loc);
 					break;
 				}

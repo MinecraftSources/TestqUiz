@@ -27,9 +27,9 @@ public class Config
 		
 		Update.config(configFile);
 
-		config.options().header("PLEASE look at http://bit.ly/TestqUizConfiguration for help!");
+		config.options().header("Need help? Check out TestqUiz's Bukkit Dev!");
 		
-		config.addDefault("General.Version", "2.0.8");
+		config.addDefault("General.Version", "2.1.3");
 		config.addDefault("General.Start.Time", 60);
 		config.addDefault("General.Start.Kick.Use", true);
 		config.addDefault("General.Start.Kick.Command", "kick PLAYERNAME Turn around and go read the rules!");

@@ -21,7 +21,7 @@ public class Users
 		
 		users = YamlConfiguration.loadConfiguration(usersFile);
 		
-		users.options().header("Check out http://bit.ly/TestqUizConfiguration for help!\n#DO NOT TOUCH THIS UNLESS YOU KNOW WHAT YOU ARE DOING!");
+		users.options().header("Need help? Check out TestqUiz's Bukkit Dev!\n#DO NOT TOUCH THIS FILE UNLESS YOU KNOW WHAT YOU ARE DOING!");
 		
 		users.addDefault("Passed", new ArrayList<String>());
 		

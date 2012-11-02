@@ -20,7 +20,7 @@ public class Messages
 		
 		messages = YamlConfiguration.loadConfiguration(messagesFile);
 		
-		messages.options().header("Check out http://bit.ly/TestqUizConfiguration for help!");
+		messages.options().header("Need help? Check out TestqUiz's Bukkit Dev!");
 		
 		messages.addDefault("Messages.To-Player.Incorrect", "That is INCORRECT!");
 		messages.addDefault("Messages.To-Player.Correct", "That is CORRECT!");
