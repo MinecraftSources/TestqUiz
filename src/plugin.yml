@@ -1,9 +1,9 @@
 name: TestqUiz
-version: 2.1.3
+version: 2.1.4
 main: me.number1_Master.TestqUiz.TestqUiz
 description: TestqUiz is the lightweight plugin which tests your players!
-author: number1_Master / nunber1_Master / number1Master
-softdepend: [Vault]
+author: number1_Master / number1Master
+softdepend: [Vault,NoCheatPlus]
 commands:
     TestqUiz:
         description: General command for TestqUiz
