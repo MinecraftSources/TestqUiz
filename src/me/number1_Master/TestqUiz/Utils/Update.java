@@ -11,6 +11,8 @@ public class Update
 {
 	public static void config(File configFile)
 	{
+		if(Config.getString("General.Version") != null && Config.getString("General.Version").equals("2.1.3")) Config.set("General.Version", "2.1.4");
+		
 		if(Config.getString("General.version") != null && Config.getString("General.version").equals("2.3"))
 		{
 			File oldFile = new File(TestqUiz.dir, "config_old.yml");
