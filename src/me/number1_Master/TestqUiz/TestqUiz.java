@@ -51,7 +51,7 @@ public class TestqUiz extends JavaPlugin
 				RegisteredServiceProvider<Economy> economyPlugin = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 				if(economyPlugin != null) economy = economyPlugin.getProvider();
 			}
-		}		
+		}
 		if(permission != null && economy != null) Log.i("Vault hooked in for Permissions and Economy!");
 		else if(permission != null && economy == null) Log.i("Vault hooked in for Permissions. Economy disabled!");
 

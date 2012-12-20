@@ -40,7 +40,7 @@ public class PlayerListener implements Listener
 			{	
 				AnswerPreprocessEvent preprocessEvent = new AnswerPreprocessEvent(player, sign);
 				Bukkit.getServer().getPluginManager().callEvent(preprocessEvent);
-				TestqUiz.p.antiSpam.put(playerName, System.currentTimeMillis() + 2000);
+				TestqUiz.p.antiSpam.put(playerName, System.currentTimeMillis() + 1000);
 				if(preprocessEvent.isCancelled()) return;
 				
 				if (sign.getLine(1).equalsIgnoreCase("Incorrect"))
