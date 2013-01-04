@@ -34,7 +34,6 @@ public class FinishListener implements Listener
 		String playerName = player.getName();
 		
 		if(TestqUiz.p.incorrectAmount.containsKey(playerName)) TestqUiz.p.incorrectAmount.remove(playerName);
-		Users.addToStringList("Passed", playerName);
 		
 		String mainMsg = prefix + Messages.getString("Messages.To-Player.Finish").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
 		String announceMsg = prefix + Messages.getString("Messages.Announce.Finish").replaceAll("PLAYERNAME", Utils.y + playerName + Utils.o);
@@ -48,6 +47,10 @@ public class FinishListener implements Listener
 			if(Config.getBoolean("Finish.Log")) Log.i(logMsg);
 			if(Config.getBoolean("Finish.Notify")) Utils.notify(playerName, "finish");
 		}
+		
+		if(Users.getStringList("Passed").contains(playerName)) return;
+		else Users.addToStringList("Passed", playerName);
+		
 		if(e.isUsingPermissions())
 		{
 			Permission permission = TestqUiz.permission;

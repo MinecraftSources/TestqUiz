@@ -11,6 +11,8 @@ public class Update
 {
 	public static void config(File configFile)
 	{
+		if(Config.getString("General.Version") != null && Config.getString("General.Version").equals("2.1.5")) Config.set("General.Version", "2.1.6");
+		
 		if(Config.getString("General.Version") != null && Config.getString("General.Version").equals("2.1.4")) Config.set("General.Version", "2.1.5");
 		
 		if(Config.getString("General.Version") != null && Config.getString("General.Version").equals("2.1.3")) Config.set("General.Version", "2.1.4");
