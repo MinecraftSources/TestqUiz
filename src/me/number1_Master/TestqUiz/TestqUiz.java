@@ -71,5 +71,5 @@ public class TestqUiz extends JavaPlugin
 	}
 	
 	@Override
-	public void onDisable(){}
+	public void onDisable() {}
 }

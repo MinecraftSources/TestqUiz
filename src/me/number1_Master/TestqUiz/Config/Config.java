@@ -97,10 +97,13 @@ public class Config
 	}
 	private static void check()
 	{ if(config == null || configFile == null) reload(); }
+	
 	public static ConfigurationSection getConfigSection(String path)
 	{
+		check();
 		return config.getConfigurationSection(path);
 	}
+	
 	public static Object get(String path)
 	{
 		check();
