@@ -11,7 +11,7 @@ import me.number1_Master.TestqUiz.Listeners.BlockListener;
 import me.number1_Master.TestqUiz.Listeners.CorrectListener;
 import me.number1_Master.TestqUiz.Listeners.FinishListener;
 import me.number1_Master.TestqUiz.Listeners.IncorrectListener;
-import me.number1_Master.TestqUiz.Listeners.PlayerListener;
+import me.number1_Master.TestqUiz.Listeners.InventoryListener;
 import me.number1_Master.TestqUiz.Listeners.PreprocessListener;
 import me.number1_Master.TestqUiz.Utils.Log;
 import net.milkbowl.vault.economy.Economy;
@@ -60,7 +60,7 @@ public class TestqUiz extends JavaPlugin
 		Messages.reload();
 		Config.reload();
 		
-		getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+		getServer().getPluginManager().registerEvents(new InventoryListener(), this);
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
 		getServer().getPluginManager().registerEvents(new PreprocessListener(), this);
 		getServer().getPluginManager().registerEvents(new IncorrectListener(), this);
